@@ -277,7 +277,7 @@ class FleetItem(SFItem.SFBrowserItem):
             fleetImg.InitAlpha()
 
         fleetImg = fleetImg.AdjustChannels(1, 1, 1, 0.5)
-        self.fleetEffBmp = wx.BitmapFromImage(fleetImg)
+        self.fleetEffBmp = wx.Bitmap(fleetImg)
 
         self.toolbar.AddButton(self.copyBmp, "Copy", self.CopyFleetCB)
         self.renameBtn = self.toolbar.AddButton(self.renameBmp, "Rename", self.RenameFleetCB)
@@ -401,7 +401,7 @@ class FleetItem(SFItem.SFBrowserItem):
     def DrawItem(self, mdc):
         rect = self.GetRect()
 
-        windowColor = wx.SystemSettings_GetColour(wx.SYS_COLOUR_WINDOW)
+        windowColor = wx.SystemSettings.GetColour(wx.SYS_COLOUR_WINDOW)
         textColor = colorUtils.GetSuitableColor(windowColor, 1)
 
         mdc.SetTextForeground(textColor)

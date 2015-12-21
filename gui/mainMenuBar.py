@@ -94,24 +94,24 @@ class MainMenuBar(wx.MenuBar):
 
         charEditItem = wx.MenuItem(windowMenu, self.characterEditorId, "&Character Editor\tCTRL+E")
         charEditItem.SetBitmap(BitmapLoader.getBitmap("character_small", "gui"))
-        windowMenu.AppendItem(charEditItem)
+        windowMenu.Append(charEditItem)
 
         damagePatternEditItem = wx.MenuItem(windowMenu, self.damagePatternEditorId, "Damage Pattern Editor\tCTRL+D")
         damagePatternEditItem.SetBitmap(BitmapLoader.getBitmap("damagePattern_small", "gui"))
-        windowMenu.AppendItem(damagePatternEditItem)
+        windowMenu.Append(damagePatternEditItem)
 
         targetResistsEditItem = wx.MenuItem(windowMenu, self.targetResistsEditorId, "Target Resists Editor\tCTRL+R")
         targetResistsEditItem.SetBitmap(BitmapLoader.getBitmap("explosive_big", "gui"))
-        windowMenu.AppendItem(targetResistsEditItem)
+        windowMenu.Append(targetResistsEditItem)
 
         graphFrameItem = wx.MenuItem(windowMenu, self.graphFrameId, "Graphs\tCTRL+G")
         graphFrameItem.SetBitmap(BitmapLoader.getBitmap("graphs_small", "gui"))
-        windowMenu.AppendItem(graphFrameItem)
+        windowMenu.Append(graphFrameItem)
 
         preferencesShortCut = "CTRL+," if 'wxMac' in wx.PlatformInfo else "CTRL+P"
         preferencesItem = wx.MenuItem(windowMenu, wx.ID_PREFERENCES, "Preferences\t"+preferencesShortCut)
         preferencesItem.SetBitmap(BitmapLoader.getBitmap("preferences_small", "gui"))
-        windowMenu.AppendItem(preferencesItem)
+        windowMenu.Append(preferencesItem)
 
         if not 'wxMac' in wx.PlatformInfo or ('wxMac' in wx.PlatformInfo and wx.VERSION >= (3,0)):
             self.sCrest = service.Crest.getInstance()

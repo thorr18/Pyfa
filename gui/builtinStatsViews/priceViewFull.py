@@ -49,7 +49,7 @@ class PriceViewFull(StatsView):
         headerContentSizer.Add(self.labelEMStatus)
         headerPanel.GetParent().AddToggleItem(self.labelEMStatus)
 
-        gridPrice = wx.GridSizer(1, 3)
+        gridPrice = wx.GridSizer(1, 3, 0, 0)
         contentSizer.Add(gridPrice, 0, wx.EXPAND | wx.ALL, 0)
         for type in ("ship", "fittings", "total"):
             image = "%sPrice_big" % type if type != "ship" else "ship_big"

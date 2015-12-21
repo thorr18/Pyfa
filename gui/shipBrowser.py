@@ -122,7 +122,7 @@ class RaceSelector(wx.Window):
         if layout == wx.VERTICAL:
             img = img.Scale(self.minWidth, 8, wx.IMAGE_QUALITY_HIGH)
 
-        self.bmpArrow = wx.BitmapFromImage(img)
+        self.bmpArrow = wx.Bitmap(img)
 
         self.RebuildRaces(self.shipBrowser.RACE_ORDER)
 
@@ -218,7 +218,7 @@ class RaceSelector(wx.Window):
     def OnPaint(self, event):
         rect = self.GetRect()
 
-        windowColor = wx.SystemSettings_GetColour(wx.SYS_COLOUR_WINDOW)
+        windowColor = wx.SystemSettings.GetColour(wx.SYS_COLOUR_WINDOW)
         bkColor = colorUtils.GetSuitableColor(windowColor, 0.1)
         sepColor = colorUtils.GetSuitableColor(windowColor, 0.2)
 
@@ -242,7 +242,7 @@ class RaceSelector(wx.Window):
                         img = img.AdjustChannels(1, 1, 1, 0.7)
                     else:
                         img = img.AdjustChannels(1, 1, 1, 0.4)
-                    bmp = wx.BitmapFromImage(img)
+                    bmp = wx.Bitmap(img)
 
                 if self.layout == wx.VERTICAL:
                     mdc.DrawBitmap(dropShadow, rect.width - self.buttonsPadding - bmp.GetWidth() + 1, y + 1)
@@ -337,7 +337,7 @@ class NavigationPanel(SFItem.SFBrowserItem):
 
         switchImg = BitmapLoader.getImage("fit_switch_view_mode_small","gui")
         switchImg = switchImg.AdjustChannels(1,1,1,0.4)
-        self.switchBmpD = wx.BitmapFromImage(switchImg)
+        self.switchBmpD = wx.Bitmap(switchImg)
 
         self.resetBmp = self.AdjustChannels(self.resetBmpH)
         self.rewBmp = self.AdjustChannels(self.rewBmpH)
@@ -452,9 +452,9 @@ class NavigationPanel(SFItem.SFBrowserItem):
             self.gotoStage(stage, data)
 
     def AdjustChannels(self, bitmap):
-        img = wx.ImageFromBitmap(bitmap)
+        img = wx.Bitmap.ConvertToImage(bitmap)
         img = img.AdjustChannels(1.05, 1.05, 1.05, 1)
-        return wx.BitmapFromImage(img)
+        return wx.Bitmap(img)
 
     def UpdateElementsPos(self, mdc):
         rect = self.GetRect()
@@ -479,7 +479,7 @@ class NavigationPanel(SFItem.SFBrowserItem):
     def DrawItem(self, mdc):
         rect = self.GetRect()
 
-        windowColor = wx.SystemSettings_GetColour(wx.SYS_COLOUR_WINDOW)
+        windowColor = wx.SystemSettings.GetColour(wx.SYS_COLOUR_WINDOW)
         textColor = colorUtils.GetSuitableColor(windowColor, 1)
         sepColor = colorUtils.GetSuitableColor(windowColor, 0.2)
 
@@ -498,7 +498,7 @@ class NavigationPanel(SFItem.SFBrowserItem):
     def RenderBackground(self):
         rect = self.GetRect()
 
-        windowColor = wx.SystemSettings_GetColour(wx.SYS_COLOUR_WINDOW)
+        windowColor = wx.SystemSettings.GetColour(wx.SYS_COLOUR_WINDOW)
 
         sFactor = 0.1
 
@@ -570,7 +570,7 @@ class ShipBrowser(wx.Panel):
             if race:
                 self.racesFilter[race] = False
 
-        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         mainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -940,7 +940,7 @@ class ShipBrowser(wx.Panel):
 class PFStaticText(wx.Panel):
     def __init__(self, parent, label=wx.EmptyString):
         wx.Panel.__init__ (self, parent, id=wx.ID_ANY, pos=wx.DefaultPosition, size = parent.GetSize())
-        self.SetBackgroundColour(wx.SystemSettings_GetColour(wx.SYS_COLOUR_WINDOW))
+        self.SetBackgroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_WINDOW))
 
         mainSizer = wx.BoxSizer(wx.VERTICAL)
         text = wx.StaticText( self, wx.ID_ANY, label, wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTRE )
@@ -1044,7 +1044,7 @@ class CategoryItem(SFItem.SFBrowserItem):
 
         self.UpdateElementsPos(mdc)
 
-        windowColor = wx.SystemSettings_GetColour(wx.SYS_COLOUR_WINDOW)
+        windowColor = wx.SystemSettings.GetColour(wx.SYS_COLOUR_WINDOW)
         textColor = colorUtils.GetSuitableColor(windowColor, 1)
 
         mdc.SetTextForeground(textColor)
@@ -1113,7 +1113,7 @@ class ShipItem(SFItem.SFBrowserItem):
 
         img = wx.ImageFromBitmap(self.shipEffBk)
         img = img.Mirror(False)
-        self.shipEffBkMirrored = wx.BitmapFromImage(img)
+        self.shipEffBkMirrored = wx.Bitmap(img)
 
         self.raceBmp = BitmapLoader.getBitmap("race_%s_small" % self.shipRace, "gui")
 
@@ -1282,7 +1282,7 @@ class ShipItem(SFItem.SFBrowserItem):
     def DrawItem(self, mdc):
         rect = self.GetRect()
 
-        windowColor = wx.SystemSettings_GetColour(wx.SYS_COLOUR_WINDOW)
+        windowColor = wx.SystemSettings.GetColour(wx.SYS_COLOUR_WINDOW)
         textColor = colorUtils.GetSuitableColor(windowColor, 1)
 
         mdc.SetTextForeground(textColor)
@@ -1348,7 +1348,7 @@ class PFBitmapFrame(wx.Frame):
                                                              | wx.STAY_ON_TOP)
         img = bitmap.ConvertToImage()
         img = img.ConvertToGreyscale()
-        bitmap = wx.BitmapFromImage(img)
+        bitmap = wx.Bitmap(img)
         self.bitmap = bitmap
         self.SetSize((bitmap.GetWidth(), bitmap.GetHeight()))
         self.Bind(wx.EVT_PAINT,self.OnWindowPaint)
@@ -1450,7 +1450,7 @@ class FitItem(SFItem.SFBrowserItem):
 
         img = wx.ImageFromBitmap(self.shipEffBk)
         img = img.Mirror(False)
-        self.shipEffBkMirrored = wx.BitmapFromImage(img)
+        self.shipEffBkMirrored = wx.Bitmap(img)
 
         self.dragTLFBmp = None
 
@@ -1777,7 +1777,7 @@ class FitItem(SFItem.SFBrowserItem):
     def DrawItem(self, mdc):
         rect = self.GetRect()
 
-        windowColor = wx.SystemSettings_GetColour(wx.SYS_COLOUR_WINDOW)
+        windowColor = wx.SystemSettings.GetColour(wx.SYS_COLOUR_WINDOW)
         textColor = colorUtils.GetSuitableColor(windowColor, 1)
 
         mdc.SetTextForeground(textColor)
@@ -1854,7 +1854,7 @@ class FitItem(SFItem.SFBrowserItem):
     def RenderBackground(self):
         rect = self.GetRect()
 
-        windowColor = wx.SystemSettings_GetColour(wx.SYS_COLOUR_WINDOW)
+        windowColor = wx.SystemSettings.GetColour(wx.SYS_COLOUR_WINDOW)
 
         activeFitID = self.mainFrame.getActiveFit()
 
