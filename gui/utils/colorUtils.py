@@ -40,11 +40,11 @@ def DarkenColor(color, factor):
 #Calculates the brightness of a color, different options
 
 def GetBrightnessO1(color):
-    r,g,b = color
+    r,g,b,a = color
     return (0.299*r + 0.587*g + 0.114*b)
 
 def GetBrightnessO2(color):
-    r,g,b = color
+    r,g,b,a = color
     return math.sqrt( 0.241 * r * r + 0.691 * g * g + 0.068 * b * b )
 
 
@@ -56,9 +56,11 @@ def GetSuitableColor(color, factor):
     brightness = GetBrightnessO1(color)
 
     if brightness >129:
-        return DarkenColor(color, factor)
+        factor = factor*100
+        return wx.Colour.ChangeLightness(color, factor)
     else:
-        return BrightenColor(color, factor)
+        factor=factor*100+100
+        return wx.Colour.ChangeLightness(color, factor)
 
 
 
@@ -66,8 +68,8 @@ def GetSuitableColor(color, factor):
 #Colors are wx.Colour objects
 
 def CalculateTransitionColor(startColor, endColor, delta):
-    sR,sG,sB = startColor
-    eR,eG,eB = endColor
+    sR,sG,sB,sA = startColor
+    eR,eG,eB,eA = endColor
 
     alphaS = startColor.Alpha()
     alphaE = endColor.Alpha()

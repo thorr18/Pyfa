@@ -45,26 +45,25 @@ parser.add_option("-w", "--wx28", action="store_true", dest="force28", help="For
 parser.add_option("-d", "--debug", action="store_true", dest="debug", help="Set logger to debug level.", default=False)
 
 (options, args) = parser.parse_args()
-
+WX='none'
 if not hasattr(sys, 'frozen'):
 
-    if sys.version_info < (2,6) or sys.version_info > (3,0):
-        print("Pyfa requires python 2.x branch ( >= 2.6 )\nExiting.")
-        sys.exit(1)
-
     try:
-        import wxversion
-    except ImportError:
-        print("Cannot find wxPython\nYou can download wxPython (2.8+) from http://www.wxpython.org/")
-        sys.exit(1)
-
-    try:
-        if options.force28 is True:
-            wxversion.select('2.8')
+        import wx
+        if 'phoenix' in wx.PlatformInfo:
+            WX='good'
+            print "wx version:" + wx.version()
         else:
-            wxversion.select(['3.0', '2.8'])
-    except wxversion.VersionError:
-        print "Installed wxPython version doesn't meet requirements.\nYou can download wxPython 2.8 or 3.0 from http://www.wxpython.org/"
+            WX='bad'
+    except ImportError:
+        print("Cannot find wxPython")
+    if WX != 'good':
+        print \
+            "This version of Pyfa requires Phoenix\n"" \
+            ""You can find wxPython-Phoenix at:\n"" \
+            ""http://wiki.wxpython.org/ProjectPhoenix#Links\n"" \
+            ""or\n"" \
+            ""https://github.com/wxWidgets/Phoenix"
         sys.exit(1)
 
     try:
@@ -108,7 +107,6 @@ if __name__ == "__main__":
     logging.basicConfig()
 
     # Import everything
-    import wx
     import os
     import os.path
 

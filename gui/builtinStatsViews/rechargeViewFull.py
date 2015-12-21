@@ -52,7 +52,7 @@ class RechargeViewFull(StatsView):
 
         self.panel = contentPanel
         self.headerPanel = headerPanel
-        sizerTankStats = wx.FlexGridSizer(3, 5)
+        sizerTankStats = wx.FlexGridSizer(3, 5, 0, 0)
         for i in xrange(4):
             sizerTankStats.AddGrowableCol(i + 1)
 

@@ -63,11 +63,11 @@ class TogglePanel ( wx.Panel ):
 
         img = self.bmpExpanded.ConvertToImage()
         img.Replace(0, 0, 0, sysTextColour[0], sysTextColour[1], sysTextColour[2])
-        self.bmpExpanded = wx.BitmapFromImage(img)
+        self.bmpExpanded = wx.Bitmap(img)
 
         img = self.bmpCollapsed.ConvertToImage()
         img.Replace(0, 0, 0, sysTextColour[0], sysTextColour[1], sysTextColour[2])
-        self.bmpCollapsed = wx.BitmapFromImage(img)
+        self.bmpCollapsed = wx.Bitmap(img)
 
         self.headerBmp = wx.StaticBitmap(self.headerPanel )
         self.headerBmp.SetBitmap( self.bmpExpanded)

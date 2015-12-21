@@ -87,10 +87,10 @@ FitSpawner.register()
 #Drag'n'drop handler
 class FittingViewDrop(wx.PyDropTarget):
         def __init__(self, dropFn):
-            wx.PyDropTarget.__init__(self)
+            wx.DropTarget.__init__(self)
             self.dropFn = dropFn
             # this is really transferring an EVE itemID
-            self.dropData = wx.PyTextDataObject()
+            self.dropData = wx.TextDataObject()
             self.SetDataObject(self.dropData)
 
         def OnData(self, x, y, t):
@@ -440,7 +440,7 @@ class FittingView(d.Display):
         self.populate(self.mods)
 
     def fitChanged(self, event):
-        try:
+        if self:#check for dead object
             if self.activeFitID is not None and self.activeFitID == event.fitID:
                 self.generateMods()
                 if self.GetItemCount() != len(self.mods):
@@ -451,9 +451,7 @@ class FittingView(d.Display):
                 exportHtml.getInstance().refreshFittingHtml()
 
             self.Show(self.activeFitID is not None and self.activeFitID == event.fitID)
-        except wx._core.PyDeadObjectError:
-            pass
-        finally:
+        else:
             event.Skip()
 
     def scheduleMenu(self, event):
@@ -593,7 +591,7 @@ class FittingView(d.Display):
                pass
 
     def OnShow(self, event):
-        if event.GetShow():
+        if event.IsShown():
             try:
                 self.MakeSnapshot()
             except:
@@ -608,10 +606,10 @@ class FittingView(d.Display):
         if self.FVsnapshot:
             del self.FVsnapshot
 
-        tbmp = wx.EmptyBitmap(16,16)
+        tbmp = wx.Bitmap(16,16)
         tdc = wx.MemoryDC()
         tdc.SelectObject(tbmp)
-        font = wx.SystemSettings_GetFont(wx.SYS_DEFAULT_GUI_FONT)
+        font = wx.SystemSettings.GetFont(wx.SYS_DEFAULT_GUI_FONT)
         tdc.SetFont(font)
 
         columnsWidths = []
@@ -707,11 +705,11 @@ class FittingView(d.Display):
 
         mdc.SelectObject(mbmp)
 
-        mdc.SetBackground(wx.Brush(wx.SystemSettings_GetColour(wx.SYS_COLOUR_WINDOW)))
+        mdc.SetBackground(wx.Brush(wx.SystemSettings.GetColour(wx.SYS_COLOUR_WINDOW)))
         mdc.Clear()
 
         mdc.SetFont(font)
-        mdc.SetTextForeground(wx.SystemSettings_GetColour(wx.SYS_COLOUR_WINDOWTEXT))
+        mdc.SetTextForeground(wx.SystemSettings.GetColour(wx.SYS_COLOUR_WINDOWTEXT))
 
         cx = padding
         for i, col in enumerate(self.activeColumns):

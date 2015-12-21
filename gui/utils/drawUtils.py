@@ -20,7 +20,7 @@ def RenderGradientBar(windowColor, width, height, sFactor, eFactor, mFactor = No
 
 
 def DrawFilledBitmap(width, height, color):
-    canvas = wx.EmptyBitmap(width,height)
+    canvas = wx.Bitmap(width,height)
 
     mdc = wx.MemoryDC()
     mdc.SelectObject(canvas)
@@ -35,7 +35,7 @@ def DrawFilledBitmap(width, height, color):
 def DrawGradientBar(width, height, gStart, gEnd, gMid = None, fillRatio = 4):
     # we need to have dimensions to draw
     #assert width > 0 and height > 0
-    canvas = wx.EmptyBitmap(width,height)
+    canvas = wx.Bitmap(width,height)
 
     mdc = wx.MemoryDC()
     mdc.SelectObject(canvas)
@@ -98,9 +98,9 @@ def GetRoundBitmap( w, h, r ):
     return b
 
 def GetRoundShape( w, h, r ):
-    return wx.RegionFromBitmap( GetRoundBitmap(w,h,r) )
+    return wx.Region( GetRoundBitmap(w,h,r) )
 
 def CreateDropShadowBitmap(bitmap, opacity):
-    img = wx.ImageFromBitmap(bitmap)
+    img = wx.Bitmap.ConvertToImage(bitmap)
     img = img.AdjustChannels(0, 0, 0, opacity)
-    return wx.BitmapFromImage(img)
+    return wx.Bitmap(img)

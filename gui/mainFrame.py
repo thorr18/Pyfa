@@ -24,7 +24,6 @@ import sqlalchemy
 import wx
 import time
 
-from wx._core import PyDeadObjectError
 from wx.lib.wordwrap import wordwrap
 
 import service
@@ -128,7 +127,7 @@ class MainFrame(wx.Frame):
             self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNFACE ) )
 
         #Load and set the icon for pyfa main window
-        i = wx.IconFromBitmap(BitmapLoader.getBitmap("pyfa", "gui"))
+        i = wx.Icon(BitmapLoader.getBitmap("pyfa", "gui"))
         self.SetIcon(i)
 
         #Create the layout and windows

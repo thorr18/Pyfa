@@ -39,7 +39,7 @@ class PyGauge(wx.PyWindow):
          chosen by either the windowing system or wxPython, depending on platform.
         """
 
-        wx.PyWindow.__init__(self, parent, id, pos, size, style)
+        wx.Window.__init__(self, parent, id, pos, size, style)
 
         self._size = size
 
@@ -278,7 +278,6 @@ class PyGauge(wx.PyWindow):
 
         :param `event`: a `wx.PaintEvent` event to be processed.
         """
-
         dc = wx.BufferedPaintDC(self)
         rect = self.GetClientRect()
 
@@ -290,7 +289,7 @@ class PyGauge(wx.PyWindow):
         dc.SetBrush(wx.Brush(colour))
         dc.SetPen(wx.Pen(colour))
 
-        dc.DrawRectangleRect(rect)
+        dc.DrawRectangle(rect)
 
         value = self._percentage
         if self._timer:
@@ -299,7 +298,7 @@ class PyGauge(wx.PyWindow):
 
         if self._border_colour:
             dc.SetPen(wx.Pen(self.GetBorderColour()))
-            dc.DrawRectangleRect(rect)
+            dc.DrawRectangle(rect)
             pad = 1 + self.GetBorderPadding()
             rect.Deflate(pad,pad)
 
@@ -350,11 +349,11 @@ class PyGauge(wx.PyWindow):
                     color = wx.Colour(191,48,48)
 
                 if self.gradientEffect > 0:
-                    gcolor = colorUtils.BrightenColor(color,  float(self.gradientEffect) / 100)
-                    gMid = colorUtils.BrightenColor(color,  float(self.gradientEffect/2) / 100)
+                    gcolor = wx.colour.changeLightness(color,  self.gradientEffect+100)
+                    gMid = wx.colour.changeLightness(color,  (self.gradientEffect/2)+100)
                 else:
-                    gcolor = colorUtils.DarkenColor(color,  float(-self.gradientEffect) / 100)
-                    gMid = colorUtils.DarkenColor(color,  float(-self.gradientEffect/2) / 100)
+                    gcolor = colorUtils.DarkenColor(color,  self.gradientEffect)
+                    gMid = colorUtils.DarkenColor(color,  self.gradientEffect/2)
 
                 gBmp = drawUtils.DrawGradientBar(r.width, r.height, gMid, color, gcolor)
                 dc.DrawBitmap(gBmp, r.left, r.top)
@@ -369,7 +368,7 @@ class PyGauge(wx.PyWindow):
                 w = rect.width * (float(value) / 100)
             r = copy.copy(rect)
             r.width = w
-            dc.DrawRectangleRect(r)
+            dc.DrawRectangle(r)
 
         dc.SetFont(self.font)
 

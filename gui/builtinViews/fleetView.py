@@ -1,4 +1,6 @@
-import wx.gizmos
+import wx
+import wx.adv
+import wx.dataview
 import gui.fleetBrowser
 import service
 from gui.bitmapLoader import BitmapLoader
@@ -21,9 +23,9 @@ class FleetSpawner(gui.multiSwitch.TabSpawner):
 
 FleetSpawner.register()
 
-class FleetView(wx.gizmos.TreeListCtrl):
+class FleetView(wx.dataview.TreeListCtrl):
     def __init__(self, parent, size = (0,0)):
-        wx.gizmos.TreeListCtrl.__init__(self, parent, size = size)
+        wx.dataview.TreeListCtrl.__init__(self, parent, size = size)
 
         self.tabManager = parent
 
@@ -33,7 +35,7 @@ class FleetView(wx.gizmos.TreeListCtrl):
         self.imageList = wx.ImageList(16, 16)
         self.SetImageList(self.imageList)
 
-        for col in ("", "Fit", "Shiptype", "Character", "Bonusses"):
+        for col in ("", "Fit", "Shiptype", "Character", "Bonuses"):
             self.AddColumn(col)
 
         self.SetMainColumn(1)
@@ -51,7 +53,7 @@ class FleetView(wx.gizmos.TreeListCtrl):
     def Destroy(self):
         self.mainFrame.Unbind(gui.fleetBrowser.EVT_FLEET_REMOVED, handler = self.fleetRemoved)
         self.mainFrame.Unbind(gui.fleetBrowser.EVT_FLEET_RENAMED, handler = self.fleetRenamed)
-        wx.gizmos.TreeListCtrl.Destroy(self)
+        wx.dataview.TreeListCtrl.Destroy(self)
 
     def fleetRenamed(self, event):
         if event.fleetID == self.fleetId:
@@ -133,8 +135,8 @@ class FleetView(wx.gizmos.TreeListCtrl):
             self.SetItemText(treeItemId, fit.character.name, 3)
             boosts = fleet.store.getBoosts(fit)
             if boosts:
-                bonusses = []
+                bonuses = []
                 for name, info in boosts.iteritems():
-                    bonusses.append("%s: %.2g" % (name, info[0]))
+                    bonuses.append("%s: %.2g" % (name, info[0]))
 
-                self.SetItemText(treeItemId, ", ".join(bonusses), 3)
+                self.SetItemText(treeItemId, ", ".join(bonuses), 3)
