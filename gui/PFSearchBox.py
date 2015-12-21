@@ -225,7 +225,7 @@ class PFSearchBox(wx.Window):
     def OnPaint(self, event):
         dc = wx.BufferedPaintDC(self)
 
-        bkColor = wx.SystemSettings_GetColour(wx.SYS_COLOUR_WINDOW)
+        bkColor = wx.SystemSettings.GetColour(wx.SYS_COLOUR_WINDOW)
         sepColor = colorUtils.GetSuitableColor(bkColor, 0.2)
         rect = self.GetRect()
 

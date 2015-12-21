@@ -34,7 +34,7 @@ class Fleet(object):
         store.set(booster, "fleet")
         #Go all the way down for each subtree we have.
         for wing in self.wings:
-            wing.calculateGangBonusses(store)
+            wing.calculateGangBonuses(store)
 
         # Check skill requirements and wing amount to see if we break or not
         if len(self.wings) == 0 or leader is None or leader.character is None or leader.character.getSkill("Fleet Command").level < len(self.wings):
@@ -88,7 +88,7 @@ class Wing(object):
         for c in chain(self.squads, (self.leader,)):
             if c is not None: c.calculateModifiedAttributes()
 
-    def calculateGangBonusses(self, store):
+    def calculateGangBonuses(self, store):
         self.broken = False
         leader = self.leader
         self.booster = booster = self.booster if self.booster is not None else leader
@@ -97,7 +97,7 @@ class Wing(object):
 
         #ALWAYS move down
         for squad in self.squads:
-            squad.calculateGangBonusses(store)
+            squad.calculateGangBonuses(store)
 
         # Check skill requirements and squad amount to see if we break or not
         if len(self.squads) == 0 or leader is None or leader.character is None or leader.character.getSkill("Wing Command").level < len(self.squads):
@@ -155,7 +155,7 @@ class Squad(object):
         for member in self.members:
             member.calculateModifiedAttributes()
 
-    def calculateGangBonusses(self, store):
+    def calculateGangBonuses(self, store):
         self.broken = False
         leader = self.leader
         self.booster = booster = self.booster if self.booster is not None else leader

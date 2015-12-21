@@ -117,7 +117,7 @@ class PFNotebook(wx.Panel):
 
         contentSizer = wx.BoxSizer(wx.VERTICAL)
         self.pageContainer = wx.Panel(self, style=style)
-        self.pageContainer.SetBackgroundColour(wx.SystemSettings_GetColour(wx.SYS_COLOUR_WINDOW))
+        self.pageContainer.SetBackgroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_WINDOW))
         contentSizer.Add(self.pageContainer, 1, wx.EXPAND, 5)
 
         mainSizer.Add(tabsSizer, 0, wx.EXPAND, 5)
@@ -150,8 +150,8 @@ class PFNotebook(wx.Panel):
     def GetBorders(self):
         """Gets border widths to better determine page size in ShowActive()"""
 
-        bx = wx.SystemSettings_GetMetric(wx.SYS_BORDER_X)
-        by = wx.SystemSettings_GetMetric(wx.SYS_BORDER_Y)
+        bx = wx.SystemSettings.GetMetric(wx.SYS_BORDER_X)
+        by = wx.SystemSettings.GetMetric(wx.SYS_BORDER_Y)
 
         if bx < 0:
             bx = 1
@@ -414,7 +414,7 @@ class PFTabRenderer:
         return self.CopyRegion(self.closeBtnRegion)
 
     def GetMinSize(self):
-        ebmp = wx.EmptyBitmap(1, 1)
+        ebmp = wx.Bitmap(1, 1)
         mdc = wx.MemoryDC()
         mdc.SelectObject(ebmp)
         mdc.SetFont(self.font)
@@ -430,7 +430,7 @@ class PFTabRenderer:
         rect = region.GetBox()
 
         newRegion = wx.Region(rect.X, rect.Y, rect.Width, rect.Height)
-        newRegion.IntersectRegion(region)
+        newRegion.Intersect(region)
 
         return newRegion
 
@@ -457,9 +457,9 @@ class PFTabRenderer:
         on platform -- see InitColors().
         """
         if self.selected:
-            tr, tg, tb = self.selectedColor
+            tr, tg, tb, ta = self.selectedColor
         else:
-            tr, tg, tb = self.inactiveColor
+            tr, tg, tb, ta = self.inactiveColor
 
         ctabLeft = self.ctabLeft.Copy()
         ctabRight = self.ctabRight.Copy()
@@ -469,17 +469,17 @@ class PFTabRenderer:
         ctabRight.Replace(0, 0, 0, tr, tg, tb)
         ctabMiddle.Replace(0, 0, 0, tr, tg, tb)
 
-        self.ctabLeftBmp = wx.BitmapFromImage(ctabLeft)
-        self.ctabRightBmp = wx.BitmapFromImage(ctabRight)
-        self.ctabMiddleBmp = wx.BitmapFromImage(ctabMiddle)
-        self.ctabCloseBmp = wx.BitmapFromImage(self.ctabClose)
+        self.ctabLeftBmp = wx.Bitmap(ctabLeft)
+        self.ctabRightBmp = wx.Bitmap(ctabRight)
+        self.ctabMiddleBmp = wx.Bitmap(ctabMiddle)
+        self.ctabCloseBmp = wx.Bitmap(self.ctabClose)
 
     def ComposeTabBack(self):
         """
         Creates the tab background bitmap based upon calculated dimension values
         and modified bitmaps via InitBitmaps()
         """
-        bkbmp = wx.EmptyBitmap(self.tabWidth, self.tabHeight)
+        bkbmp = wx.Bitmap(self.tabWidth, self.tabHeight)
 
         mdc = wx.MemoryDC()
         mdc.SelectObject(bkbmp)
@@ -492,7 +492,7 @@ class PFTabRenderer:
         # convert middle bitmap and scale to tab width
         cm = self.ctabMiddleBmp.ConvertToImage()
         mimg = cm.Scale(self.contentWidth, self.ctabMiddle.GetHeight(), wx.IMAGE_QUALITY_NORMAL)
-        mbmp = wx.BitmapFromImage(mimg)
+        mbmp = wx.Bitmap(mimg)
         mdc.DrawBitmap(mbmp, self.leftWidth, 0 ) # set middle bitmap, offset by left
 
         # set right bitmap offset by left + middle
@@ -512,13 +512,13 @@ class PFTabRenderer:
         Initializes regions for tab, which makes it easier to determine if
         given coordinates are incluced in a region
         """
-        self.tabRegion = wx.RegionFromBitmap(self.tabBackBitmap)
-        self.closeBtnRegion = wx.RegionFromBitmap(self.ctabCloseBmp)
+        self.tabRegion = wx.Region(self.tabBackBitmap)
+        self.closeBtnRegion = wx.Region(self.ctabCloseBmp)
         self.closeBtnRegion.Offset(self.contentWidth + self.leftWidth - self.ctabCloseBmp.GetWidth()/2, (self.tabHeight - self.ctabCloseBmp.GetHeight())/2)
 
     def InitColors(self):
         """Determines colors used for tab, based on system settings"""
-        self.tabColor = wx.SystemSettings_GetColour(wx.SYS_COLOUR_3DFACE)
+        self.tabColor = wx.SystemSettings.GetColour(wx.SYS_COLOUR_3DFACE)
         self.inactiveColor = colorUtils.GetSuitableColor(self.tabColor, 0.25)
         self.selectedColor = colorUtils.GetSuitableColor(self.tabColor, 0.10)
 
@@ -534,7 +534,7 @@ class PFTabRenderer:
 
         #rect = wx.Rect(0, 0, self.tabWidth, self.tabHeight)
 
-        canvas = wx.EmptyBitmap(self.tabWidth, self.tabHeight, 24)
+        canvas = wx.Bitmap(self.tabWidth, self.tabHeight, 24)
 
         mdc = wx.MemoryDC()
 
@@ -548,7 +548,7 @@ class PFTabRenderer:
         mdc.DrawBitmap(self.tabBackBitmap, 0, 0, True)
 
         if self.tabImg:
-            bmp = wx.BitmapFromImage(self.tabImg)
+            bmp = wx.Bitmap(self.tabImg)
             if self.contentWidth > 16:  # @todo: is this conditional relevant anymore?
                 # Draw tab icon
                 mdc.DrawBitmap(bmp, self.leftWidth + self.padding - bmp.GetWidth()/2, (height - bmp.GetHeight())/2)
@@ -573,7 +573,7 @@ class PFTabRenderer:
             else:
                 cimg = self.ctabCloseBmp.ConvertToImage()
                 cimg = cimg.AdjustChannels(0.7, 0.7, 0.7, 0.3)
-                cbmp = wx.BitmapFromImage(cimg)
+                cbmp = wx.Bitmap(cimg)
 
             mdc.DrawBitmap(
                         cbmp,
@@ -588,7 +588,7 @@ class PFTabRenderer:
         if not img.HasAlpha():
             img.InitAlpha()
 
-        bmp = wx.BitmapFromImage(img)
+        bmp = wx.Bitmap(img)
         self.tabBitmap = bmp
 
 
@@ -600,7 +600,7 @@ class PFAddRenderer:
         self.height = self.addImg.GetHeight()
 
         self.region = None
-        self.tbmp = wx.BitmapFromImage(self.addImg)
+        self.tbmp = wx.Bitmap(self.addImg)
         self.addBitmap = None
 
         self.position = (0, 0)
@@ -628,14 +628,14 @@ class PFAddRenderer:
         self._Render()
 
     def CreateRegion(self):
-        region = wx.RegionFromBitmap(self.tbmp)
+        region = wx.Region(self.tbmp)
         return region
 
     def CopyRegion(self, region):
         rect = region.GetBox()
 
         newRegion = wx.Region(rect.X, rect.Y, rect.Width, rect.Height)
-        newRegion.IntersectRegion(region)
+        newRegion.Intersect(region)
 
         return newRegion
 
@@ -659,7 +659,7 @@ class PFAddRenderer:
         alpha = 1 if self.highlighted else 0.3
 
         img = self.addImg.AdjustChannels(1, 1, 1, alpha)
-        bbmp = wx.BitmapFromImage(img)
+        bbmp = wx.Bitmap(img)
         self.addBitmap = bbmp
 
 
@@ -1083,7 +1083,7 @@ class PFTabsContainer(wx.Panel):
             from Carbon.Appearance import kThemeBrushDialogBackgroundActive
             brush.MacSetTheme(kThemeBrushDialogBackgroundActive)
         else:
-            color = wx.SystemSettings_GetColour(wx.SYS_COLOUR_3DFACE)
+            color = wx.SystemSettings.GetColour(wx.SYS_COLOUR_3DFACE)
             brush = wx.Brush(color)
 
         if "wxGTK" not in wx.PlatformInfo:
@@ -1113,7 +1113,7 @@ class PFTabsContainer(wx.Panel):
                 bmp = tab.Render()
                 img = bmp.ConvertToImage()
                 img = img.AdjustChannels(1, 1, 1, 0.85)
-                bmp = wx.BitmapFromImage(img)
+                bmp = wx.Bitmap(img)
                 mdc.DrawBitmap(bmp, posx, posy, True)
 
             else:
@@ -1128,7 +1128,7 @@ class PFTabsContainer(wx.Panel):
             if self.dragging:
                 img = bmp.ConvertToImage()
                 img = img.AdjustChannels(1.2, 1.2, 1.2, 0.7)
-                bmp = wx.BitmapFromImage(img)
+                bmp = wx.Bitmap(img)
 
             mdc.DrawBitmap(bmp, posx, posy, True)
 
@@ -1147,7 +1147,7 @@ class PFTabsContainer(wx.Panel):
             simg = simg.Blur(2)
             simg = simg.AdjustChannels(0.3, 0.3, 0.3, 0.35)
 
-            self.efxBmp = wx.BitmapFromImage(simg)
+            self.efxBmp = wx.Bitmap(simg)
 
     def AddTab(self, title=wx.EmptyString, img=None, showClose=False):
         self.ClearTabsSelected()
@@ -1342,7 +1342,7 @@ class PFNotebookPagePreview(wx.Frame):
         canvas = wx.EmptyBitmap(rect.width, rect.height)
         mdc = wx.BufferedPaintDC(self)
         mdc.SelectObject(canvas)
-        color = wx.SystemSettings_GetColour(wx.SYS_COLOUR_WINDOW)
+        color = wx.SystemSettings.GetColour(wx.SYS_COLOUR_WINDOW)
         mdc.SetBackground(wx.Brush(color))
         mdc.Clear()
 
@@ -1351,10 +1351,10 @@ class PFNotebookPagePreview(wx.Frame):
 
         x,y = mdc.GetTextExtent(self.title)
 
-        mdc.SetBrush(wx.Brush(wx.SystemSettings_GetColour(wx.SYS_COLOUR_WINDOWTEXT)))
+        mdc.SetBrush(wx.Brush(wx.SystemSettings.GetColour(wx.SYS_COLOUR_WINDOWTEXT)))
         mdc.DrawRectangle(0, 0, rect.width, 16)
 
-        mdc.SetTextForeground(wx.SystemSettings_GetColour(wx.SYS_COLOUR_WINDOW))
+        mdc.SetTextForeground(wx.SystemSettings.GetColour(wx.SYS_COLOUR_WINDOW))
 
         mdc.DrawText(self.title, (rect.width - x)/2, (16 - y)/2)
 

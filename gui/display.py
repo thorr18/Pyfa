@@ -19,15 +19,16 @@
 
 import sys
 import wx
+from wx.lib.agw import ultimatelistctrl as ULC
 import gui.mainFrame
 
 from gui.viewColumn import ViewColumn
 from gui.cachingImageList import CachingImageList
 
-class Display(wx.ListCtrl):
-    def __init__(self, parent, size = wx.DefaultSize, style = 0):
+class Display(ULC.UltimateListCtrl):
+    def __init__(self, parent, size=wx.DefaultSize, style=0):
 
-        wx.ListCtrl.__init__(self, parent,size = size, style=wx.LC_REPORT |  style )
+        ULC.UltimateListCtrl.__init__(self, parent, -1, size=size, agwStyle=ULC.ULC_REPORT )
         self.imageList = CachingImageList(16, 16)
         self.SetImageList(self.imageList, wx.IMAGE_LIST_SMALL)
         self.activeColumns = []
@@ -63,8 +64,8 @@ class Display(wx.ListCtrl):
             self.columnsMinWidth.append(self.GetColumnWidth(i))
             i += 1
 
-        info = wx.ListItem()
-        info.m_mask = wx.LIST_MASK_WIDTH
+        info = ULC.UltimateListItem()
+        info.SetMask(ULC.ULC_MASK_WIDTH)
         self.InsertColumnInfo(i, info)
         self.SetColumnWidth(i, 0)
 
@@ -148,7 +149,7 @@ class Display(wx.ListCtrl):
 
     def addColumn(self, i, col):
         self.activeColumns.append(col)
-        info = wx.ListItem()
+        info = ULC.UltimateListItem()
         info.m_mask = col.mask | wx.LIST_MASK_FORMAT | wx.LIST_MASK_WIDTH
         info.m_image = col.imageId
         info.m_text = col.columnText

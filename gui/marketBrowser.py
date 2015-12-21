@@ -127,7 +127,7 @@ class MarketTree(wx.TreeCtrl):
         sMkt = self.sMkt
         for mktGrp in sMkt.getMarketRoot():
             iconId = self.addImage(sMkt.getIconByMarketGroup(mktGrp))
-            childId = self.AppendItem(self.root, mktGrp.name, iconId, data=wx.TreeItemData(mktGrp.ID))
+            childId = self.AppendItem(self.root, mktGrp.name, iconId, data=mktGrp.ID)
             # All market groups which were never expanded are dummies, here we assume
             # that all root market groups are expandable
             self.AppendItem(childId, "dummy")
@@ -135,7 +135,7 @@ class MarketTree(wx.TreeCtrl):
 
         # Add recently used modules node
         rumIconId = self.addImage("market_small", "gui")
-        self.AppendItem(self.root, "Recently Used Modules", rumIconId, data = wx.TreeItemData(RECENTLY_USED_MODULES))
+        self.AppendItem(self.root, "Recently Used Modules", rumIconId, data=RECENTLY_USED_MODULES)
 
         # Bind our lookup method to when the tree gets expanded
         self.Bind(wx.EVT_TREE_ITEM_EXPANDING, self.expandLookup)

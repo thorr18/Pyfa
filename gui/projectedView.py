@@ -38,10 +38,10 @@ class DummyEntry:
 
 class ProjectedViewDrop(wx.PyDropTarget):
    def __init__(self, dropFn):
-       wx.PyDropTarget.__init__(self)
+       wx.DropTarget.__init__(self)
        self.dropFn = dropFn
        # this is really transferring an EVE itemID
-       self.dropData = wx.PyTextDataObject()
+       self.dropData = wx.TextDataObject()
        self.SetDataObject(self.dropData)
 
    def OnData(self, x, y, t):

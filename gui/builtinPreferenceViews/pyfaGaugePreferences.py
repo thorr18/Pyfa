@@ -121,11 +121,11 @@ class PFGaugePreview(wx.Window):
 
         color = colorUtils.CalculateTransitionColor(self.colorS, self.colorE, float(value)/100)
         if self.gradientStart > 0:
-            gcolor = colorUtils.BrightenColor(color,  float(self.gradientStart) / 100)
-            gMid = colorUtils.BrightenColor(color,  float(self.gradientStart/2) / 100)
+            gcolor = wx.Colour.changeLightness(color,  self.gradientStart+100)
+            gMid = wx.Colour.changeLightness(color,  (self.gradientStart/2)+100)
         else:
-            gcolor = colorUtils.DarkenColor(color,  float(-self.gradientStart) / 100)
-            gMid = colorUtils.DarkenColor(color,  float(-self.gradientStart/2) / 100)
+            gcolor = wx.Colour.changeLightness(color,  self.gradientStart)
+            gMid = wx.Colour.changeLightness(color,  self.gradientStart/2)
 
         gBmp = drawUtils.DrawGradientBar(r.width, r.height, gMid, color, gcolor)
         dc.DrawBitmap(gBmp,0,0)

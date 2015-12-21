@@ -79,7 +79,7 @@ class ItemStatsDialog(wx.Dialog):
             iconFile = "%s%s%s" % (before,sep,"0%s" % after if len(after) < 2 else after)
             itemImg = BitmapLoader.getBitmap(iconFile, "icons")
             if itemImg is not None:
-                self.SetIcon(wx.IconFromBitmap(itemImg))
+                self.SetIcon(wx.Icon(itemImg))
         self.SetTitle("%s: %s%s" % ("%s Stats" % itmContext if itmContext is not None else "Stats", item.name, " (%d)"%item.ID if config.debug else ""))
 
         self.SetMinSize((300, 200))
@@ -238,8 +238,8 @@ class ItemDescription ( wx.Panel ):
         mainSizer = wx.BoxSizer(wx.VERTICAL)
         self.SetSizer(mainSizer)
 
-        bgcolor = wx.SystemSettings_GetColour(wx.SYS_COLOUR_WINDOW)
-        fgcolor = wx.SystemSettings_GetColour(wx.SYS_COLOUR_WINDOWTEXT)
+        bgcolor = wx.SystemSettings.GetColour(wx.SYS_COLOUR_WINDOW)
+        fgcolor = wx.SystemSettings.GetColour(wx.SYS_COLOUR_WINDOWTEXT)
 
         self.description = wx.html.HtmlWindow(self)
         desc = item.description.replace("\r", "<br>")

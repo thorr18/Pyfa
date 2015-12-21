@@ -27,7 +27,7 @@ class AttributeEditor( wx.Frame ):
         wx.Frame.__init__(self, parent, wx.ID_ANY, title="Attribute Editor", pos=wx.DefaultPosition,
                             size=wx.Size(650, 600), style=wx.DEFAULT_FRAME_STYLE|wx.FRAME_FLOAT_ON_PARENT|wx.TAB_TRAVERSAL)
 
-        i = wx.IconFromBitmap(BitmapLoader.getBitmap("fit_rename_small", "gui"))
+        i = wx.Icon(BitmapLoader.getBitmap("fit_rename_small", "gui"))
         self.SetIcon(i)
 
         self.mainFrame = parent
@@ -46,7 +46,7 @@ class AttributeEditor( wx.Frame ):
         self.Bind(wx.EVT_MENU, self.OnClear, fileClear)
 
 
-        i = wx.IconFromBitmap(BitmapLoader.getBitmap("fit_rename_small", "gui"))
+        i = wx.Icon(BitmapLoader.getBitmap("fit_rename_small", "gui"))
         self.SetIcon(i)
 
         self.mainFrame = parent

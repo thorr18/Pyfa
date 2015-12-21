@@ -131,7 +131,7 @@ class PFToolbar(object):
             bx += bwidth + self.padding
 
         if not changeCursor:
-            self.Parent.SetCursor(wx.StockCursor(wx.CURSOR_ARROW))
+            self.Parent.SetCursor(wx.Cursor(wx.CURSOR_ARROW))
         return doRefresh
 
     def MouseClick(self, event):
@@ -384,7 +384,7 @@ class SFBrowserItem(wx.Window):
     def RenderBackground(self):
         rect = self.GetRect()
 
-        windowColor = wx.SystemSettings_GetColour(wx.SYS_COLOUR_WINDOW)
+        windowColor = wx.SystemSettings.GetColour(wx.SYS_COLOUR_WINDOW)
 
         state = self.GetState()
 

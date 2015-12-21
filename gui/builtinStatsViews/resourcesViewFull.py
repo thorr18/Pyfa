@@ -72,7 +72,7 @@ class ResourcesViewFull(StatsView):
         root = wx.BoxSizer(wx.VERTICAL)
         contentSizer.Add(root, 0, wx.EXPAND, 0)
 
-        sizer = wx.GridSizer(1, 4)
+        sizer = wx.GridSizer(1, 4, 0, 0)
         root.Add(sizer, 0, wx.EXPAND)
         root.Add(wx.StaticLine(contentPanel, wx.ID_ANY, style=wx.HORIZONTAL), 0, wx.EXPAND)
 
@@ -234,7 +234,7 @@ class ResourcesViewFull(StatsView):
                 label.SetToolTip(wx.ToolTip("%.1f" % value))
 
         colorWarn = wx.Colour(204, 51, 51)
-        colorNormal = wx.SystemSettings_GetColour(wx.SYS_COLOUR_WINDOWTEXT)
+        colorNormal = wx.SystemSettings.GetColour(wx.SYS_COLOUR_WINDOWTEXT)
 
         if usedTurretHardpoints > totalTurretHardpoints:
             colorT = colorWarn
