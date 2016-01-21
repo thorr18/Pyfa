@@ -5,7 +5,7 @@ Windows executable: python setup.py build
 Windows executable + installer: python setup.py bdist_msi
 """
 import requests.certs
-
+import sys
 if 'darwin' in sys.platform:
     from setuptools import setup
     APP = ['pyfa.py']
