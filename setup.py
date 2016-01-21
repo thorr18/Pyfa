@@ -22,7 +22,7 @@ if 'darwin' in sys.platform:
             options={'py2app': OPTIONS},
             setup_requires=['py2app'],
     )
-else
+else:
     # The modules that contain the bulk of teh source
     packages = ['eos', 'gui', 'service', 'utils']
     # Extra files that will be copied into the root directory
