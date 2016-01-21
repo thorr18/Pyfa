@@ -9,11 +9,11 @@ import sys
 if 'darwin' in sys.platform:
     from setuptools import setup
     APP = ['pyfa.py']
-    DATA_FILES = ['eve.db', 'README.md', 'LICENSE', 'imgs', requests.certs.where()]
+    DATA_FILES = ['eve.db', 'README.md', 'LICENSE', requests.certs.where()]
     OPTIONS = {
         'argv_emulation': False,
         'iconfile': 'dist_assets/mac/pyfa.icns',
-        'packages': ['eos', 'gui', 'service', 'utils']
+        'packages': ['eos', 'gui', 'service', 'utils', 'imgs']
     }
     setup(
             app=APP,
