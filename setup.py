@@ -6,6 +6,22 @@ Windows executable + installer: python setup.py bdist_msi
 """
 import requests.certs
 
+if 'darwin' in sys.platform:
+    from setuptools import setup
+    APP = ['pyfa.py']
+    DATA_FILES = ['eve.db', 'README.md', 'LICENSE', 'imgs', requests.certs.where()]
+    OPTIONS = {
+        'argv_emulation': False,
+        'iconfile': 'dist_assets/mac/pyfa.icns',
+        'packages': ['eos', 'gui', 'service', 'utils']
+    }
+    setup(
+            app=APP,
+            data_files=DATA_FILES,
+            options={'py2app': OPTIONS},
+            setup_requires=['py2app'],
+    )
+
 # The modules that contain the bulk of teh source
 packages = ['eos', 'gui', 'service', 'utils']
 # Extra files that will be copied into the root directory
