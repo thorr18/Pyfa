@@ -6,21 +6,14 @@ Windows executable + installer: python setup.py bdist_msi
 """
 import requests.certs
 import sys
-print sys.platform
+if __name__ == "__main__":
+    print sys.platform
+
 if 'darwin' in sys.platform:
     from setuptools import setup
-    APP = ['pyfa.py']
-    DATA_FILES = ['eve.db', 'README.md', 'LICENSE', requests.certs.where()]
-    OPTIONS = {
-        'argv_emulation': False,
-        'iconfile': 'dist_assets/mac/pyfa.icns',
-        'packages': ['eos', 'gui', 'service', 'utils', 'imgs']
-    }
     setup(
-            app=APP,
-            data_files=DATA_FILES,
-            options={'py2app': OPTIONS},
-            setup_requires=['py2app'],
+            app=["pyfa.py"],
+            setup_requires=["py2app"]
     )
 else:
     # The modules that contain the bulk of teh source
