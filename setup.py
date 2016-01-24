@@ -1,23 +1,27 @@
 """
 Distribution builder for pyfa.
 """
-import requests.certs
 import sys
+import config
+import requests.certs
+APP = ['pyfa.py']
+app_version='{}'.format(config.version)
+app_description = 'Python fitting assistant'
+
 if 'darwin' in sys.platform:
-    import config
-    try:
-        from setuptools import setup
-    except ImportError:
-        from distutils.core import setup
-        setup(
-                name='Pyfa',
-                version='{}'.format(config.version),
-                description='Python fitting assistant',
-                url='https://github.com/pyfa-org/Pyfa',
-                packages=['', 'eos', 'gui', 'service', 'utils'],
-                #entry_points={'gui_scripts': ['pyfa = pfya.__main__:main']},
-                resources=['imgs']
-        )
+    #import setuptools
+    #from setuptools import setup
+    #from setuptools import version as sutv;
+    print setuptools.__version__;
+    print "setuptools imported, but will something happen here: ,..."
+    setup(
+            name=APP,
+            version=app_version,
+            description=app_description,
+            url="https://github.com/pyfa-org/Pyfa",
+            #entry_points={'gui_scripts': ['pyfa = .pyfa']},
+            #packages=['eos', 'gui', 'service', 'utils']
+    )
 else:
     # The modules that contain the bulk of teh source
     packages = ['eos', 'gui', 'service', 'utils']
@@ -34,12 +38,6 @@ else:
 
     if __name__ == "__main__":
         from cx_Freeze import setup, Executable
-        import config
-
-
-        app_name = 'pyfa'
-        app_version = '{}'.format(config.version)
-        app_description = 'Python fitting assistant'
 
         # Windows-specific options
         build_options_winexe = {
@@ -86,7 +84,7 @@ else:
             name=app_name,
             version=app_version,
             description=app_description,
-            options = {
+            options={
                 'build_exe': build_options_winexe,
                 'bdist_msi': build_options_winmsi,
                 'bdist_mac': build_options_macapp,
