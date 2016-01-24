@@ -9,12 +9,8 @@ app_version='{}'.format(config.version)
 app_description = 'Python fitting assistant'
 
 if 'darwin' in sys.platform:
-    #import setuptools
-    #from setuptools import setup
-    #from setuptools import version as sutv;
     print setuptools.__version__;
-    print "setuptools imported, but will something happen here: ,..."
-    setup(
+    setuptools.setup(
             name=APP,
             version=app_version,
             description=app_description,
