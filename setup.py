@@ -4,19 +4,19 @@ Distribution builder for pyfa.
 import sys
 import config
 import requests.certs
-APP = ['pyfa.py']
+APP = 'pyfa.py'
 app_version='{}'.format(config.version)
 app_description = 'Python fitting assistant'
 
 if 'darwin' in sys.platform:
-    print setuptools.__version__;
+    import setuptools
     setuptools.setup(
             name=APP,
             version=app_version,
             description=app_description,
             url="https://github.com/pyfa-org/Pyfa",
+            packages = setuptools.find_packages(),
             #entry_points={'gui_scripts': ['pyfa = .pyfa']},
-            #packages=['eos', 'gui', 'service', 'utils']
     )
 else:
     # The modules that contain the bulk of teh source
