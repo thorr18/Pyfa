@@ -9,7 +9,8 @@ app_version='{}'.format(config.version)
 app_description = 'Python fitting assistant'
 
 if 'darwin' in sys.platform:
-    import setuptools
+    #import setuptools
+    print setuptools.__version__
     setuptools.setup(
             name=APP,
             version=app_version,
