@@ -15,8 +15,8 @@ if 'darwin' in sys.platform:
             version=app_version,
             description=app_description,
             url="https://github.com/pyfa-org/Pyfa",
-            packages = setuptools.find_packages(),
-            #entry_points={'gui_scripts': ['pyfa = .pyfa']},
+            packages=setuptools.find_packages(),
+            entry_points={'gui_scripts': ['pyfa = pyfa.py']},
     )
 else:
     # The modules that contain the bulk of teh source
