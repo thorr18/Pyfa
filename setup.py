@@ -10,8 +10,8 @@ app_description = 'Python fitting assistant'
 
 TROUBLESHOOT=2
 if ('darwin' in sys.platform) and TROUBLESHOOT==1:
-    import setuptools #already imported by the Ruby helper
-    print setuptools.__version__
+    #import setuptools #already imported by the Ruby helper
+    print "setup version: ", setuptools.__version__
     setuptools.setup(
             name=APP,
             version=app_version,
@@ -24,8 +24,8 @@ if ('darwin' in sys.platform) and TROUBLESHOOT==1:
 elif 'darwin' in sys.platform and TROUBLESHOOT==2:
     #from distutils.core import setup
     #from setuptools import setup
-    print setuptools.__version__
-    setup(
+    print "setup version: ", setuptools.__version__
+    setuptools.setup(
             name=APP,
             version=app_version,
             description=app_description,
