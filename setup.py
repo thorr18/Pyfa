@@ -8,16 +8,36 @@ APP = 'pyfa.py'
 app_version='{}'.format(config.version)
 app_description = 'Python fitting assistant'
 
-if 'darwin' in sys.platform:
-    #import setuptools
+TROUBLESHOOT=2
+if ('darwin' in sys.platform) and TROUBLESHOOT==1:
+    import setuptools #already imported by the Ruby helper
     print setuptools.__version__
     setuptools.setup(
             name=APP,
             version=app_version,
             description=app_description,
             url="https://github.com/pyfa-org/Pyfa",
+            package_dir={'': '.'},
             packages=setuptools.find_packages(),
-            entry_points={'gui_scripts': ['pyfa = pyfa.py']},
+            entry_points={'gui_scripts': ['pyfa = pyfa.py']}
+    )
+elif 'darwin' in sys.platform and TROUBLESHOOT==2:
+    #from distutils.core import setup
+    #from setuptools import setup
+    print setuptools.__version__
+    setup(
+            name=APP,
+            version=app_version,
+            description=app_description,
+            url="https://github.com/pyfa-org/Pyfa",
+            packages=['eos', 'gui', 'service', 'utils'],
+            package_dir={'': '.'},
+            package_data={'': ['imgs/*.png']},
+            py_modules=['pyfa'],
+            scripts=['pyfa.py'],
+            #entry_points={'gui_scripts': ['pyfa = pyfa.py']},
+            data_files=[('', ['eve.db', requests.certs.where()]),
+                        ('icons', ['dist_assets/mac/pyfa.icns'])]
     )
 else:
     # The modules that contain the bulk of teh source
