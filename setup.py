@@ -4,14 +4,16 @@ Distribution builder for pyfa.
 import sys
 import config
 import requests.certs
+import setuptools # already imported by Ruby installer
+print "setup version: ", setuptools.__version__
+
 APP = 'pyfa.py'
-app_version='{}'.format(config.version)
+app_version = '{}'.format(config.version)
 app_description = 'Python fitting assistant'
 
-TROUBLESHOOT=2
-if ('darwin' in sys.platform) and TROUBLESHOOT==1:
-    #import setuptools #already imported by the Ruby helper
-    print "setup version: ", setuptools.__version__
+TROUBLESHOOT = 2
+if ('darwin' in sys.platform) and TROUBLESHOOT == 1:
+
     setuptools.setup(
             name=APP,
             version=app_version,
@@ -21,21 +23,21 @@ if ('darwin' in sys.platform) and TROUBLESHOOT==1:
             packages=setuptools.find_packages(),
             entry_points={'gui_scripts': ['pyfa = pyfa.py']}
     )
-elif 'darwin' in sys.platform and TROUBLESHOOT==2:
-    #from distutils.core import setup
-    #from setuptools import setup
-    print "setup version: ", setuptools.__version__
+elif 'darwin' in sys.platform and TROUBLESHOOT == 2:
+    #import distutils
+    #distutils.setup(
     setuptools.setup(
             name=APP,
             version=app_version,
             description=app_description,
             url="https://github.com/pyfa-org/Pyfa",
-            packages=['eos', 'gui', 'service', 'utils'],
+            license = "GNU",
             package_dir={'': '.'},
-            package_data={'': ['imgs/*.png']},
+            packages=setuptools.find_packages(),
+            package_data={'': ['imgs/gui/*.png','imgs/icons/*.png','imgs/renders/*.png']},
             py_modules=['pyfa'],
-            #scripts=['pyfa.py'],
-            #entry_points={'gui_scripts': ['pyfa = pyfa.py']},
+            scripts=['pyfa.py'],
+            entry_points={'gui_scripts': ['pyfa = pyfa.py']},
             data_files=[('', ['eve.db', requests.certs.where()]),
                         ('icons', ['dist_assets/mac/pyfa.icns'])]
     )
