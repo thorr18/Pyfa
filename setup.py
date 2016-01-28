@@ -11,33 +11,19 @@ APP = 'pyfa.py'
 app_version = '{}'.format(config.version)
 app_description = 'Python fitting assistant'
 
-TROUBLESHOOT = 2
-if ('darwin' in sys.platform) and TROUBLESHOOT == 1:
-
+if 'darwin' in sys.platform:
     setuptools.setup(
             name=APP,
             version=app_version,
             description=app_description,
             url="https://github.com/pyfa-org/Pyfa",
-            package_dir={'': '.'},
-            packages=setuptools.find_packages(),
-            entry_points={'gui_scripts': ['pyfa = pyfa.py']}
-    )
-elif 'darwin' in sys.platform and TROUBLESHOOT == 2:
-    #import distutils
-    #distutils.setup(
-    setuptools.setup(
-            name=APP,
-            version=app_version,
-            description=app_description,
-            url="https://github.com/pyfa-org/Pyfa",
-            license = "GNU",
+            license="GNU",
             package_dir={'': '.'},
             packages=setuptools.find_packages(),
             package_data={'': ['imgs/gui/*.png','imgs/icons/*.png','imgs/renders/*.png']},
             py_modules=['config'],
             scripts=['pyfa.py'],
-            #entry_points={'gui_scripts': ['pyfa = .pyfa']},
+            #entry_points={'gui_scripts': ['pyfa = pyfa']},
             data_files=[('', ['eve.db', requests.certs.where()]),
                         ('icons', ['dist_assets/mac/pyfa.icns'])]
     )
