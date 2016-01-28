@@ -37,7 +37,7 @@ elif 'darwin' in sys.platform and TROUBLESHOOT == 2:
             package_data={'': ['imgs/gui/*.png','imgs/icons/*.png','imgs/renders/*.png']},
             py_modules=['config'],
             scripts=['pyfa.py'],
-            entry_points={'gui_scripts': ['pyfa = pyfa.py']},
+            #entry_points={'gui_scripts': ['pyfa = .pyfa']},
             data_files=[('', ['eve.db', requests.certs.where()]),
                         ('icons', ['dist_assets/mac/pyfa.icns'])]
     )
