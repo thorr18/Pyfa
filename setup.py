@@ -21,7 +21,7 @@ if 'darwin' in sys.platform:
             package_dir={'': '.'},
             packages=setuptools.find_packages(),
             package_data={'': ['imgs/gui/*.png','imgs/icons/*.png','imgs/renders/*.png']},
-            py_modules=['config'],
+            py_modules=['config', 'pyfa'],
             scripts=['pyfa.py'],
             #entry_points={'gui_scripts': ['pyfa = pyfa']},
             data_files=[('', ['eve.db', requests.certs.where()]),
