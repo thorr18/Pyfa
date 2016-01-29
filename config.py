@@ -19,7 +19,7 @@ saveInRoot = False
 
 # Version data
 version = "1.17.33"
-version += "+thorr.1.17.33"  # +downstream local version identifier (PEP-0440)
+version += "+thorr.1.17.34"  # +downstream local version identifier (PEP-0440)
 tag = "git"
 expansionName = "YC 118.1"
 expansionVersion = "1.0"

@@ -10,7 +10,7 @@ print "setup version: ", setuptools.__version__
 APP = 'pyfa.py'
 app_version = '{}'.format(config.version)
 app_description = 'Python fitting assistant'
-
+print "https://github.com/thorr18/Pyfa/releases/tag/"+app_version+".tar.gz"
 if 'darwin' in sys.platform:
     setuptools.setup(
             name=APP,
@@ -18,13 +18,13 @@ if 'darwin' in sys.platform:
             description=app_description,
             url="https://github.com/pyfa-org/Pyfa",
             license="GNU",
-            download_url="https://github.com/thorr18/Pyfa", #integrator.url
+            download_url="https://github.com/thorr18/Pyfa/releases/tag/"+app_version+".tar.gz",
             package_dir={'': '.'},
             packages=setuptools.find_packages(),
             package_data={'': ['imgs/gui/*.png','imgs/icons/*.png','imgs/renders/*.png']},
             py_modules=['config', 'pyfa'],
             scripts=['pyfa.py'],
-            entry_points={'gui_scripts': ['pyfa = pyfa.py']},
+            entry_points={'gui_scripts': ['pyfa = pyfa']},
             data_files=[('', ['eve.db', requests.certs.where()]),
                         ('icons', ['dist_assets/mac/pyfa.icns'])]
     )
