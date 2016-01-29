@@ -23,7 +23,7 @@ if 'darwin' in sys.platform:
             package_data={'': ['imgs/gui/*.png','imgs/icons/*.png','imgs/renders/*.png']},
             py_modules=['config', 'pyfa'],
             scripts=['pyfa.py'],
-            #entry_points={'gui_scripts': ['pyfa = pyfa']},
+            entry_points={'gui_scripts': ['pyfa = pyfa']},
             data_files=[('', ['eve.db', requests.certs.where()]),
                         ('icons', ['dist_assets/mac/pyfa.icns'])]
     )
