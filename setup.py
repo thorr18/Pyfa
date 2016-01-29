@@ -18,6 +18,7 @@ if 'darwin' in sys.platform:
             description=app_description,
             url="https://github.com/pyfa-org/Pyfa",
             license="GNU",
+            download_url="https://github.com/thorr18/Pyfa", #integrator.url
             package_dir={'': '.'},
             packages=setuptools.find_packages(),
             package_data={'': ['imgs/gui/*.png','imgs/icons/*.png','imgs/renders/*.png']},
