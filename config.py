@@ -18,9 +18,9 @@ debug = False
 saveInRoot = False
 
 # Version data
-version = "1.17" # major.minor
-version += "+thorr" #local tag
-version += ".30" #maint
+version = "1.17"  # major.minor
+version += ".32"  #.maint
+version += "+thorr"  # +downstream local version identifier (PEP-0440)
 tag = "git"
 expansionName = "YC 118.1"
 expansionVersion = "1.0"
