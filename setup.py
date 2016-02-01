@@ -4,7 +4,7 @@ Distribution builder for pyfa.
 import sys
 import config
 import requests.certs
-import setuptools # already imported by Ruby installer
+import setuptools  # already imported by Ruby installer
 print "setup version: ", setuptools.__version__
 
 APP_NAME = 'pyfa.py'
@@ -12,7 +12,8 @@ APP_VERSION = '{}'.format(config.version)
 APP_DESCRIPTION = 'Python fitting assistant'
 print "https://github.com/thorr18/Pyfa/releases/tag/" + APP_VERSION + ".tar.gz"
 if 'darwin' in sys.platform:
-    PKGS = setuptools.find_packages()#+['']
+    PKGS = setuptools.find_packages()
+    # PKGS += PKGS+['']  #add root package
     setuptools.setup(
             name=APP_NAME,
             version=APP_VERSION,
@@ -22,10 +23,10 @@ if 'darwin' in sys.platform:
             download_url="https://github.com/thorr18/Pyfa/releases/tag/" + APP_VERSION + ".tar.gz",
             package_dir={'': '.'},
             packages=PKGS,
-            package_data={'': ['imgs/gui/*.png','imgs/icons/*.png','imgs/renders/*.png']},
-            py_modules=['config', 'pyfa', '__main__'],
+            package_data={'': ['imgs/gui/*.png', 'imgs/icons/*.png', 'imgs/renders/*.png']},
+            py_modules=['config', 'pyfa', 'entry'],
             scripts=['pyfa.py'],
-            entry_points={'gui_scripts': ["pyfa = __main__:main"]},
+            entry_points={'gui_scripts': ["pyfa = entry:entry"]},
             data_files=[('', ['eve.db', requests.certs.where()]),
                         ('icons', ['dist_assets/mac/pyfa.icns'])]
     )
