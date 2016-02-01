@@ -94,8 +94,9 @@ if not hasattr(sys, 'frozen'):
         print("Cannot find python-dateutil.\nYou can download python-dateutil from https://pypi.python.org/pypi/python-dateutil")
         sys.exit(1)
 
-
-if __name__ == "__main__":
+print "pyfa module"
+def main():
+    print "pyfa main()"
     # Configure paths
     if options.rootsavedata is True:
         config.saveInRoot = True

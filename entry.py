@@ -1,5 +1,7 @@
 print "module entry"
 print __name__
+
+
 def entry():
     print "enter entry()"
     if __name__ == '__main__':
