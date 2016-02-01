@@ -18,7 +18,7 @@ debug = False
 saveInRoot = False
 
 # Version data
-version = "1.17.38"
+version = "1.17.39"
 version += "+thorr."+version  # +downstream local version identifier (PEP-0440)
 tag = "git"
 expansionName = "YC 118.1"
