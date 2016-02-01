@@ -7,24 +7,25 @@ import requests.certs
 import setuptools # already imported by Ruby installer
 print "setup version: ", setuptools.__version__
 
-APP = 'pyfa.py'
-app_version = '{}'.format(config.version)
-app_description = 'Python fitting assistant'
-print "https://github.com/thorr18/Pyfa/releases/tag/"+app_version+".tar.gz"
+APP_NAME = 'pyfa.py'
+APP_VERSION = '{}'.format(config.version)
+APP_DESCRIPTION = 'Python fitting assistant'
+print "https://github.com/thorr18/Pyfa/releases/tag/" + APP_VERSION + ".tar.gz"
 if 'darwin' in sys.platform:
+    PKGS = setuptools.find_packages()#+['']
     setuptools.setup(
-            name=APP,
-            version=app_version,
-            description=app_description,
+            name=APP_NAME,
+            version=APP_VERSION,
+            description=APP_DESCRIPTION,
             url="https://github.com/pyfa-org/Pyfa",
             license="GNU",
-            download_url="https://github.com/thorr18/Pyfa/releases/tag/"+app_version+".tar.gz",
+            download_url="https://github.com/thorr18/Pyfa/releases/tag/" + APP_VERSION + ".tar.gz",
             package_dir={'': '.'},
-            packages=setuptools.find_packages(),
+            packages=PKGS,
             package_data={'': ['imgs/gui/*.png','imgs/icons/*.png','imgs/renders/*.png']},
-            py_modules=['config', 'pyfa'],
+            py_modules=['config', 'pyfa', '__main__'],
             scripts=['pyfa.py'],
-            entry_points={'gui_scripts': ['pyfa = pyfa']},
+            entry_points={'gui_scripts': ["pyfa = __main__:main"]},
             data_files=[('', ['eve.db', requests.certs.where()]),
                         ('icons', ['dist_assets/mac/pyfa.icns'])]
     )
@@ -59,18 +60,18 @@ else:
         build_options_winmsi = {
             'upgrade_code': '{E80885AC-31BA-4D9A-A04F-9E5915608A6C}',
             'add_to_path': False,
-            'initial_target_dir': r'[ProgramFilesFolder]\{}'.format(app_name),
+            'initial_target_dir': r'[ProgramFilesFolder]\{}'.format(APP_NAME),
         }
 
 
         # Mac-specific options (untested)
         build_options_macapp = {
             'iconfile': 'dist_assets/mac/pyfa.icns',
-            'bundle_name': app_name,
+            'bundle_name': APP_NAME,
         }
 
         build_options_macdmg = {
-            'volume_label': app_name,
+            'volume_label': APP_NAME,
             'applications-shortcut': True,
         }
 
@@ -83,13 +84,13 @@ else:
             'base': 'Win32GUI' if sys.platform=='win32' else None,
             'icon': 'dist_assets/win/pyfa.ico',
             'shortcutDir': 'DesktopFolder',
-            'shortcutName': app_name,
+            'shortcutName': APP_NAME,
         }
 
         setup(
-            name=app_name,
-            version=app_version,
-            description=app_description,
+            name=APP_NAME,
+            version=APP_VERSION,
+            description=APP_DESCRIPTION,
             options={
                 'build_exe': build_options_winexe,
                 'bdist_msi': build_options_winmsi,
