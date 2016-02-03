@@ -26,9 +26,9 @@ if 'darwin' in sys.platform:
             packages=PKGS,
             #include_package_data=True,
             package_data={'': ['imgs/gui/*.png', 'imgs/icons/*.png', 'imgs/renders/*.png']},
-            py_modules=['config', 'pyfa', 'entry', '__main__'],
+            py_modules=['config', 'pyfa', 'entry'],
             scripts=['pyfa.py'],
-            entry_points={'gui_scripts': ["pyfaEntry = entry:entry", "pyfaMain = __main__:main", "pyfaPy = pyfa.py"]},
+            entry_points={'gui_scripts': ["runpyfa = entry:entry", "pyfa = pyfa"]},
             data_files=[('', ['eve.db', requests.certs.where()]),
                         ('icons', ['dist_assets/mac/pyfa.icns'])]
     )
@@ -36,7 +36,7 @@ else:
     # The modules that contain the bulk of teh source
     packages = ['eos', 'gui', 'service', 'utils']
     # Extra files that will be copied into the root directory
-    include_files = ['eve.db', 'LICENSE', 'README.md', (requests.certs.where(),'cacert.pem')]
+    include_files = ['eve.db', 'LICENSE', 'README.md', (requests.certs.where(), 'cacert.pem')]
     # this is read by dist.py to package the icons
     icon_dirs = ['gui', 'icons', 'renders']
 
