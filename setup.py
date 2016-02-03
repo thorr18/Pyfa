@@ -24,7 +24,7 @@ if 'darwin' in sys.platform:
             download_url=APP_DOWNLOADURL,
             package_dir={'': '.'},
             packages=PKGS,
-            #include_package_data=True,
+            include_package_data=True,
             package_data={'': ['imgs/gui/*.png', 'imgs/icons/*.png', 'imgs/renders/*.png']},
             py_modules=['config', 'pyfa', 'entry'],
             scripts=['pyfa.py'],
