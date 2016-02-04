@@ -14,7 +14,7 @@ APP_URL = "https://github.com/pyfa-org/Pyfa"
 PKGS = setuptools.find_packages()
 if 'darwin' in sys.platform:
     APP_DOWNLOADURL = "https://github.com/thorr18/Pyfa/archive/" + APP_VERSION + ".tar.gz"
-    #PKGS += ['']
+    PKGS += ['']  # includes the root package
     setuptools.setup(
             name=APP_NAME,
             version=APP_VERSION,
